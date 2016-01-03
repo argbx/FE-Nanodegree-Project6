@@ -34,29 +34,30 @@ $(function () {
          * in the allFeeds object and ensures it has a URL defined
          * and that the URL is not empty.
          */
-        it('has URL', function () {
-            for (var x = 0; x < allFeeds.length; x++) {
-                expect(allFeeds[x].url).toBeDefined();
-                expect(allFeeds[x].url.length).not.toBe(0);
+        it('have defined and non-empty URLs', function () {
 
-            }
+            allFeeds.forEach(function (feed) {
+                expect(feed.url).toBeDefined();
+                expect(feed.url.length).not.toBe(0);
+            });
+
         });
 
         /* Test that loops through each feed
          * in the allFeeds object and ensures it has a name defined
          * and that the name is not empty.
          */
-        it('has Name', function () {
+        it('have defined and non-empty Names', function () {
             for (var x = 0; x < allFeeds.length; x++) {
                 expect(allFeeds[x].name).toBeDefined();
                 expect(allFeeds[x].name.length).not.toBe(0);
 
-            }
+            };
         });
     });
 
 
-    /* TODO: Write a new test suite named "The menu" */
+    /* New test suite named "The menu" */
 
     describe('The menu', function () {
 
@@ -65,20 +66,17 @@ $(function () {
          * hidden by default. 
          */
 
-        it('is hidden', function () {
-            //  expect(document.getElementsByClassName('menu-hidden').length).not.toBe(0);
-            //  expect($(body).hasClass('menu-hidden'))
-            expect($("body").hasClass('menu-hidden')).toBe(true);
+        it('is hidden by default', function () {
+            expect($("body").hasClass('menu-hidden')).toBeTruthy();
 
         });
 
         /* Test that ensures the menu changes
          * visibility when the menu icon is clicked. 
          */
-        this.beforeEach(function () {
-            $('.menu-icon-link').trigger('click');
-
-        })
+        this.beforeEach(function () {$('.menu-icon-link').trigger('click');
+                                    });
+        
         it('shows when the icon is clicked', function () {
             expect(this.$('.menu').is(':visible')).toBe(true);
         });
@@ -89,7 +87,7 @@ $(function () {
 
     });
 
-        /* TODO: Write a new test suite named "Initial Entries" */
+    /* New test suite named "Initial Entries" */
     describe('Initial Entries', function () {
         beforeEach(function (done) {
             loadFeed(0, done);
@@ -105,39 +103,31 @@ $(function () {
         it('has entry', function () {
             expect($("article").hasClass('entry')).toBe(true);
         });
-    })
+    });
 
 
 
     //New test suite named "New Feed Selection"
     describe('New Feed Selection', function () {
-        
-    /* TODO: Write a test that ensures when a new feed is loaded
-     * by the loadFeed function that the content actually changes.
-     * Remember, loadFeed() is asynchronous.
-     */
-        
+
+        /* Test that ensures when a new feed is loaded
+         * by the loadFeed function that the content actually changes.
+         * Remember, loadFeed() is asynchronous.
+         */
+
         beforeEach(function (done) {
-            $('.feed').empty()
-            loadFeed(0, function(){
-                       first = $('.feed').find('h2').text();
-
-            });
-                        loadFeed(1, function(){
-                       second = $('.feed').find('h2').text();
-            done();
-
+            $('.feed').empty();
+            loadFeed(0, function () {
+                first = $('.feed').find('h2').text();
+                loadFeed(1, function () {
+                    second = $('.feed').find('h2').text();
+                    done();
+                });
             });
         });
 
-        it('changes the content',function(done){
- 
-
-                    expect(first).not.toEqual(second);
-            done();
-
-           
-           })
-    })
-
+        it('changes the content', function () {
+            expect(first).not.toEqual(second);
+        });
+    });
 }());
