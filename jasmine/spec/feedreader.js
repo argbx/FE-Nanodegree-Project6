@@ -74,16 +74,16 @@ $(function () {
         /* Test that ensures the menu changes
          * visibility when the menu icon is clicked. 
          */
-        this.beforeEach(function () {$('.menu-icon-link').trigger('click');
-                                    });
-        
-        it('shows when the icon is clicked', function () {
-            expect(this.$('.menu').is(':visible')).toBe(true);
+        // moved beforeeach and combined two tests into one. 1.4.2016
+        it('changes visibility when the menu icon is clicked', function () {
+            $('.menu-icon-link').trigger('click');
+            expect($("body").hasClass('menu-hidden')).toBeFalsy();
+            $('.menu-icon-link').trigger('click');
+            expect($("body").hasClass('menu-hidden')).toBeTruthy();
+
         });
 
-        it('hides when the icon is clicked', function () {
-            this.expect($('.menu').is(':visible')).toBe(false);
-        });
+  
 
     });
 
@@ -114,20 +114,21 @@ $(function () {
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
-
+        var firstFeedContent;
+        var secondFeedContent;
         beforeEach(function (done) {
             $('.feed').empty();
             loadFeed(0, function () {
-                first = $('.feed').find('h2').text();
+                firstFeedContent = $('.feed').find('h2').text();
                 loadFeed(1, function () {
-                    second = $('.feed').find('h2').text();
+                    secondFeedContent = $('.feed').find('h2').text();
                     done();
                 });
             });
         });
 
         it('changes the content', function () {
-            expect(first).not.toEqual(second);
+            expect(firstFeedContent).not.toEqual(secondFeedContent);
         });
     });
 }());

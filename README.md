@@ -7,7 +7,20 @@ A web-based application that reads RSS feeds.
 
 Run python -m SimpleHTTPServer 8080 or simly open the index.html in your browser.
 
-
+## Performed Tests
+ * Tests following: 
+ * RSS Feeds
+ *          are defined
+ *          have defined and non-empty URLs
+ *          have defined and non-empty Names
+ * The menu
+ *          is hidden by default
+ *          changes visibility when the menu icon is clicked
+ * Initial Entries
+ *          has entry
+ *          New Feed Selection
+ *          changes the content
+ 
 # Steps taken to complete the project
 
 1. Returned the allFeeds variable to a passing state.
